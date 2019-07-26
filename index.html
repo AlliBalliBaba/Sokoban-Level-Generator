@@ -1,0 +1,53 @@
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.9.0/p5.js"></script>
+    <script src="index.js"></script>
+    <script src="utils.js"></script>
+    <script src="draw.js"></script>
+    <script src="level.js"></script>
+    <script src="pathfinder.js"></script>
+    <script src="playerControls.js"></script>
+    <script src="optimizer.js"></script>
+    <script src="generator.js"></script>
+    <title>Sokoban lvl generator</title>
+
+
+</head>
+
+<body>
+
+    <div id="buttoncontainer">
+        <button id="startButton" class="btn2" color="white" onClick="startGame()">Start new game</button>
+        <button id="generateButton" class="btn" color="white" onClick="randomLevel()">Generate random level</button>
+        <button id="optimizeButton" class="btn3" color="white" onClick="optimize(1)">Optimize level</button>
+        <button id="revertButton" class="btn3" color="white" onClick="revertStep()">Revert step</button>
+    </div>
+    <div class="slideContainer">
+        <div id="sizeTxt">size of level</div>
+        <input type="range" min="7" max="25" value="10" class="slider" id="sizeSlider" onchange="displayHtmlValues()">
+    </div>
+
+    <div class="slideContainer">
+        <div id="boxTxt">number of boxes</div>
+        <input type="range" min="1" max="18" value="3" class="slider" id="numSlider" onchange="displayHtmlValues()">
+    </div>
+
+
+
+
+    <div id="canvas1" class="center">
+
+    </div>
+
+
+
+</body>
+
+
+
+
+
+</html>

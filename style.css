@@ -1,0 +1,43 @@
+.center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+}
+
+.btn {
+    cursor: pointer;
+    height: 40px;
+    background: rgb(255, 109, 24);
+    border-radius: 5px;
+    border: none;
+    color: rgba(255, 255, 255, 0.897);
+    font-family: monospace;
+    font-size: 14px;
+}
+
+.btn2 {
+    cursor: pointer;
+    height: 40px;
+    background: rgb(15, 91, 255);
+    border-radius: 5px;
+    border: none;
+    color: rgba(255, 255, 255, 0.897);
+    font-family: monospace;
+    font-size: 14px;
+}
+
+.btn3 {
+    cursor: pointer;
+    height: 40px;
+    background: rgb(73, 180, 2);
+    border-radius: 5px;
+    border: none;
+    color: rgba(255, 255, 255, 0.897);
+    font-family: monospace;
+    font-size: 14px;
+}
+
+#canvas1 {
+    transform: translate(0, -13%);
+}
