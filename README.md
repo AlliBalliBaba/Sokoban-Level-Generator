@@ -18,6 +18,6 @@ number of boxes in the level. The optimizer is not necessary to generate interes
 the solution to a level more obvious
 
 ## Improvements
-The main problem is that the generator cannot really distinguish if a level is "interesting" or not. Occasionally very easy levels
+The main problem with the generator is that it cannot really distinguish if a level is difficult or not. Occasionally very easy levels
 with an obvious solution are being created, which makes it hard to gradually increase the difficulty using the generator alone.
-It might be interesting to make an algorithm, that can generate a level for a set difficulty.
+It might be interesting to create an algorithm, that can generate a level for a set difficulty.
