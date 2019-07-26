@@ -1,6 +1,6 @@
 // optimize the level by solving it in different ways and removing unnecessary free spots
 // repeatably optimizing can have different results, since there is a randomness to optimizing algorithm
-// performance increases with n!, where n is the number of boxes (10! =  3628800)
+// performance increases with n!, where n is the number of boxes (reminder: 10! =  3628800)
 // this alogorithm is only recommended if there are few boxes
 
 function optimizeLvl(lvl) {

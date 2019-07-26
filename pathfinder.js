@@ -108,7 +108,7 @@ class Pathfinder {
                     cost2 = this.nodeCost(node.x, node.y - 1) + this.nodeCost(node.x, node.y + 1) + this.nodeCost(node.x - 1, node.y - 1) +
                         this.nodeCost(node.x - 2, node.y - 1) + this.nodeCost(node.x - 2, node.y);;
                 }
-            } else if (node.x + 1 == parent.x) {
+            } else if (node.x + 1 == parent.x && node.x + 2 != parent.parent.x) {
                 //case 2: node is left of parent
                 if (node.y - 1 == parent.parent.y) {
                     //case 2.1: node is up left of parent.parent
@@ -121,7 +121,7 @@ class Pathfinder {
                     cost2 = this.nodeCost(node.x, node.y - 1) + this.nodeCost(node.x, node.y + 1) + this.nodeCost(node.x + 1, node.y - 1) +
                         this.nodeCost(node.x + 2, node.y - 1) + this.nodeCost(node.x + 2, node.y);;
                 }
-            } else if (node.y - 1 == parent.y) {
+            } else if (node.y - 1 == parent.y && node.y - 2 != parent.parent.y) {
                 //case 3: node is above parent
                 if (node.x - 1 == parent.parent.x) {
                     //case 3.1: node is right up of parent.parent  
@@ -134,7 +134,7 @@ class Pathfinder {
                     var cost2 = this.nodeCost(node.x - 1, node.y) + this.nodeCost(node.x + 1, node.y) + this.nodeCost(node.x - 1, node.y - 1) +
                         this.nodeCost(node.x - 1, node.y - 2) + this.nodeCost(node.x, node.y - 2);;
                 }
-            } else if (node.y + 1 == parent.y) {
+            } else if (node.y + 1 == parent.y && node.y + 2 != parent.parent.y) {
                 //case 4: node is under parent
                 if (node.x - 1 == parent.parent.x) {
                     //case 4.1: node is right down of parent.parent
@@ -149,6 +149,17 @@ class Pathfinder {
                 }
             }
             tempCost += (cost1 < cost2 ? cost1 : cost2);
+        } else if (isBox) {
+            if (node.x - 1 == parent.x) {
+                tempCost += this.nodeCost(node.x - 2, node.y);
+            } else if (node.x + 1 == parent.x) {
+                tempCost += this.nodeCost(node.x + 2, node.y);
+            } else if (node.y - 1 == parent.y) {
+                tempCost += this.nodeCost(node.x, node.y - 2);
+            } else if (node.y + 1 == parent.y) {
+                tempCost += this.nodeCost(node.x, node.y + 2);
+            }
+
         }
         return tempCost;
     }
