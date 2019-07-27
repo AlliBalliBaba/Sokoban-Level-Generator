@@ -26,16 +26,21 @@ class Level {
         //place buttons
         for (var i = 0; i < numBoxes; i++) {
             var pos = this.randomSpot();
-            this.buttons.push(new Button(pos[0], pos[1]))
+            if (pos != null) {
+                this.buttons.push(new Button(pos[0], pos[1]))
+            }
         }
         //place boxes
         for (var i = 0; i < numBoxes; i++) {
             var pos = this.randomSpot();
-            this.boxes.push(new Box(pos[0], pos[1], this.buttons[i]))
-            this.nodes[pos[0]][pos[1]].hasBox = true;
+            if (pos != null) {
+                this.boxes.push(new Box(pos[0], pos[1], this.buttons[i]))
+                this.nodes[pos[0]][pos[1]].hasBox = true;
+            }
         }
         //place player
         var pos = this.randomSpot();
+        if (pos == null) { pos == [buttons[0].x, buttons[0].y]; }
         this.playerX = pos[0];
         this.playerY = pos[1];
         this.playerstartX = this.playerX;
@@ -54,12 +59,18 @@ class Level {
 
     //return a random unoccupied spot and remove the wall
     randomSpot() {
-        var rand = randomInt(0, this.allowedSpots.length);
-        var x = this.allowedSpots[rand].x;
-        var y = this.allowedSpots[rand].y;
-        this.allowedSpots.splice(rand, 1);
-        this.nodes[x][y].wall = false;
-        return [x, y];
+        if (this.allowedSpots.length != 0) {
+            var rand = randomInt(0, this.allowedSpots.length);
+            var x = this.allowedSpots[rand].x;
+            var y = this.allowedSpots[rand].y;
+            this.allowedSpots.splice(rand, 1);
+            if (this.absoluteBlockade(x, y)) {
+                return this.randomSpot();
+            } else {
+                this.nodes[x][y].wall = false;
+                return [x, y];
+            }
+        } else { return null; }
     }
 
     //randomly remove walls from the level
@@ -74,6 +85,21 @@ class Level {
     setPlayerPos(X, Y) {
         this.playerX = X;
         this.playerY = Y;
+    }
+
+    //check if a spot is blockaded by boxes
+    absoluteBlockade(X, Y) {
+        if (this.nodes[X + 1][Y].hasBox) {
+            if ((this.nodes[X + 1][Y + 1].hasBox && this.nodes[X][Y + 1].hasBox) || (this.nodes[X + 1][Y - 1].hasBox && this.nodes[X][Y - 1].hasBox)) {
+                return true;
+            }
+        }
+        if (this.nodes[X - 1][Y].hasBox) {
+            if ((this.nodes[X - 1][Y - 1].hasBox && this.nodes[X][Y - 1].hasBox) || (this.nodes[X - 1][Y + 1].hasBox && this.nodes[X][Y + 1].hasBox)) {
+                return true;
+            }
+        }
+        return false;
     }
 }
 
