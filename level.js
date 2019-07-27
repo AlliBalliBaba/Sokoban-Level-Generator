@@ -70,6 +70,11 @@ class Level {
             }
         }
     }
+
+    setPlayerPos(X, Y) {
+        this.playerX = X;
+        this.playerY = Y;
+    }
 }
 
 class Box {
@@ -80,6 +85,18 @@ class Box {
         this.py = this.y;
         this.placed = false;
         this.solveButton = button;
+    }
+
+    setPosition(X, Y) {
+        this.x = X;
+        this.y = Y;
+    }
+
+    placeExactly(X, Y) {
+        this.x = X;
+        this.y = Y;
+        this.px = this.x;
+        this.py = this.y;
     }
 }
 

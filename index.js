@@ -32,7 +32,6 @@ function startGame() {
     inGame = true;
     newLevel();
     document.getElementById("startButton").style.visibility = "hidden";
-    document.getElementById("optimizeButton").style.visibility = "visible";
     document.getElementById("revertButton").style.visibility = "visible";
 }
 
@@ -42,7 +41,6 @@ function randomLevel() {
     inGame = false;
     newLevel();
     document.getElementById("startButton").style.visibility = "visible";
-    document.getElementById("optimizeButton").style.visibility = "visible";
     document.getElementById("revertButton").style.visibility = "visible";
 }
 
@@ -65,6 +63,7 @@ function newLevel() {
         readHtmlValues();
     }
     setHtmlValues();
+    document.getElementById("optimizeButton").style.visibility = "visible";
 
     currentLvl = new Level(levelSize, levelSize, boxNumber);
     currentLvl.rip(randomInt(-2, 5));

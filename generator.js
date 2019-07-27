@@ -12,11 +12,11 @@ function generatePaths(lvl) {
         //calculate the paths from all boxes to their buttons
         var boxPaths = [];
         for (var i = 0; i < lvl.solveCounter; i++) {
-            var lvlBox = lvl.ghostboxes[i];
-            lvl.nodes[lvlBox.x][lvlBox.y].occupied = false;
-            var solver = new Pathfinder(lvl, lvlBox.x, lvlBox.y, lvlBox.solveButton.x, lvlBox.solveButton.y)
+            var thisbox = lvl.ghostboxes[i];
+            lvl.nodes[thisbox.x][thisbox.y].occupied = false;
+            var solver = new Pathfinder(lvl, thisbox.x, thisbox.y, thisbox.solveButton.x, thisbox.solveButton.y)
             boxPaths.push(solver.returnPath(true));
-            lvl.nodes[lvlBox.x][lvlBox.y].occupied = true;
+            lvl.nodes[thisbox.x][thisbox.y].occupied = true;
         }
         //calculate the player paths to all boxes and choose the lowest cost path
         var playerPaths = [];
@@ -42,27 +42,22 @@ function generatePaths(lvl) {
             }
         }
         var playerPath = playerPaths[bestPath][0];
-
-        //if playerPath endpoint is blocked, scrap the level
-        if (playerPath.length != 0) {
-            var endnode = playerPath[playerPath.length - 1];
-            if (lvl.nodes[endnode.x][endnode.y].occupied) {
-                lvl.trash = true;
-            }
-        }
+        var boxPath = boxPaths[bestPath][0];
 
         //remove all walls on the player's path
         for (var i = 0; i < playerPath.length; i++) {
             playerPath[i].wall = false;
+            if (playerPath[i].occupied) {
+                lvl.trash = true;
+            }
         }
         //push the box into the solving direction until there is a turn
-        var lvlBox = lvl.ghostboxes[bestPath];
-        var boxPath = boxPaths[bestPath][0];
-        lvl.nodes[lvlBox.x][lvlBox.y].occupied = false;
+        var thisbox = lvl.ghostboxes[bestPath];
         var currentNode = boxPath[0];
-        var diffX = currentNode.x - lvlBox.x;
-        var diffY = currentNode.y - lvlBox.y;
+        var diffX = currentNode.x - thisbox.x;
+        var diffY = currentNode.y - thisbox.y;
         var stop = 0;
+
         //if the path is longer than 1, check for a turn
         if (boxPath.length > 1) {
             for (var i = 1; i < boxPath.length; i++) {
@@ -80,15 +75,15 @@ function generatePaths(lvl) {
             boxPath[i].wall = false;
         }
         //set new player and box positions
-        lvlBox.x = boxPath[stop].x;
-        lvlBox.y = boxPath[stop].y;
-        lvl.playerX = lvlBox.x - diffX;
-        lvl.playerY = lvlBox.y - diffY;
-        lvl.nodes[lvlBox.x][lvlBox.y].occupied = true;
+        lvl.nodes[thisbox.x][thisbox.y].occupied = false;
+        thisbox.setPosition(boxPath[stop].x, boxPath[stop].y)
+        lvl.nodes[thisbox.x][thisbox.y].occupied = true;
+        lvl.setPlayerPos(thisbox.x - diffX, thisbox.y - diffY)
+
 
         //check if the moved box is on the button
-        if (lvlBox.x == lvlBox.solveButton.x && lvlBox.y == lvlBox.solveButton.y) {
-            lvlBox.placed = true;
+        if (thisbox.x == thisbox.solveButton.x && thisbox.y == thisbox.solveButton.y) {
+            thisbox.placed = true;
             lvl.solveCounter--;
             lvl.ghostboxes.splice(bestPath, 1);
         }
@@ -99,8 +94,7 @@ function generatePaths(lvl) {
         }
     }
     //reset player position
-    lvl.playerX = lvl.playerstartX;
-    lvl.playerY = lvl.playerstartY;
+    lvl.setPlayerPos(lvl.playerstartX, lvl.playerstartY);
     px = lvl.playerX;
     py = lvl.playerY;
 }

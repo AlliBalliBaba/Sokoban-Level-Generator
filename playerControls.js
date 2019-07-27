@@ -54,19 +54,16 @@ function CheckPositions(prevX, prevY, x, y, nextX, nextY) {
     var nodes = currentLvl.nodes;
     if (checkBoundaries(x, y) && !nodes[x][y].wall) {
         if (!nodes[x][y].hasBox) {
-            currentLvl.playerX = x;
-            currentLvl.playerY = y;
+            currentLvl.setPlayerPos(x, y);
             addActivity(prevX, prevY, null);
             addActivity(x, y, null);
             currentLvl.savedPositions.push([prevX, prevY, null, -1, -1])
         } else if (checkBoundaries(nextX, nextY) && !nodes[nextX][nextY].wall && !nodes[nextX][nextY].hasBox) {
-            currentLvl.playerX = x;
-            currentLvl.playerY = y;
+            currentLvl.setPlayerPos(x, y);
             nodes[x][y].hasBox = false;
             nodes[nextX][nextY].hasBox = true;
             var box = getBox(x, y);
-            box.x = nextX;
-            box.y = nextY;
+            box.setPosition(nextX, nextY);
             box.placed = getButton(nextX, nextY);
             addActivity(prevX, prevY, null);
             addActivity(x, y, null);
@@ -75,23 +72,20 @@ function CheckPositions(prevX, prevY, x, y, nextX, nextY) {
             if (box.placed) { checkWin(); }
         }
     }
+    document.getElementById("optimizeButton").style.visibility = "hidden";
 }
 
 //revert the last step
 function revertStep() {
     if (currentLvl.savedPositions.length != 0) {
         var positions = currentLvl.savedPositions.pop();
-        currentLvl.playerX = positions[0];
-        currentLvl.playerY = positions[1];
+        currentLvl.setPlayerPos(positions[0], positions[1]);
         px = currentLvl.playerX;
         py = currentLvl.playerY;
         if (positions[2] != null) {
             var thisBox = positions[2];
             currentLvl.nodes[thisBox.x][thisBox.y].hasBox = false;
-            thisBox.x = positions[3];
-            thisBox.y = positions[4];
-            thisBox.px = thisBox.x;
-            thisBox.py = thisBox.y;
+            thisBox.placeExactly(positions[3], positions[4]);
             thisBox.placed = getButton(thisBox.x, thisBox.y);
             currentLvl.nodes[thisBox.x][thisBox.y].hasBox = true;
         }

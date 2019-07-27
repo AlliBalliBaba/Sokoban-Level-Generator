@@ -79,11 +79,11 @@ function optimizeLvl(lvl) {
 
             //push the box into the solving direction until there is a turn
             var thisBox = ghostboxes[bestPath];
-            lvl.nodes[thisBox.x][thisBox.y].occupied = false;
             var currentNode = boxPath[0];
             var diffX = currentNode.x - thisBox.x;
             var diffY = currentNode.y - thisBox.y;
             var stop = 0;
+
             //if the path is longer than 1, check for a turn
             if (boxPath.length > 1) {
                 for (var i = 1; i < boxPath.length; i++) {
@@ -106,12 +106,12 @@ function optimizeLvl(lvl) {
             }
 
             //set and mark new player and box positions
-            thisBox.x = boxPath[stop].x;
-            thisBox.y = boxPath[stop].y;
-            lvl.playerX = thisBox.x - diffX;
-            lvl.playerY = thisBox.y - diffY;
+            lvl.nodes[thisBox.x][thisBox.y].occupied = false;
+            thisBox.setPosition(boxPath[stop].x, boxPath[stop].y);
             lvl.nodes[thisBox.x][thisBox.y].occupied = true;
             lvl.nodes[thisBox.x][thisBox.y].used = true;
+
+            lvl.setPlayerPos(thisBox.x - diffX, thisBox.y - diffY);
             lvl.nodes[lvl.playerX][lvl.playerY].used = true;
 
             //check if the moved box is on the button
@@ -128,8 +128,7 @@ function optimizeLvl(lvl) {
         }
 
         //reset player position
-        lvl.playerX = lvl.playerstartX;
-        lvl.playerY = lvl.playerstartY;
+        lvl.setPlayerPos(lvl.playerstartX, lvl.playerstartY)
         px = lvl.playerX;
         py = lvl.playerY;
         lvl.nodes[lvl.playerX][lvl.playerY].used = true;
