@@ -1,5 +1,5 @@
 // optimize the level by solving it in different ways and removing unnecessary free spots
-// repeatably optimizing has different results, since there is a randomness to the algorithm
+// repeatably optimizing yields different results, since there is a randomness to the algorithm
 
 function optimizeLvl(lvl, iterations) {
 
