@@ -30,7 +30,7 @@ function optimizeLvl(lvl, iterations) {
             //randomly set pathcost for the boxes to negative in order to simulate nondirectional pushing of the boxes
             var tempCost = pathCost;
             pathCost = randomInt(-2, 4);
-            playerPathCost = randomInt(-2, 4);
+            playerPathCost = 2;
 
             //calculate the paths from all boxes to their buttons
             var boxPaths = CalcualteBoxPaths(lvl, ghostBoxes);
