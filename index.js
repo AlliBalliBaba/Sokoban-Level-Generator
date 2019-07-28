@@ -32,6 +32,7 @@ function startGame() {
     inGame = true;
     newLevel();
     document.getElementById("startButton").style.visibility = "hidden";
+    document.getElementById("startButton").disabled = true;
     document.getElementById("revertButton").style.visibility = "visible";
 }
 
@@ -41,6 +42,7 @@ function randomLevel() {
     inGame = false;
     newLevel();
     document.getElementById("startButton").style.visibility = "visible";
+    document.getElementById("startButton").disabled = false;
     document.getElementById("revertButton").style.visibility = "visible";
 }
 
@@ -151,13 +153,13 @@ function nextLevel() {
     if (random <= 0.1) {
         levelSize = randomInt(7, 9);
         boxNumber = randomInt(2, 4);
-    } else if (random <= 0.4) {
+    } else if (random <= 0.3) {
         levelSize = randomInt(8, 12);
         boxNumber = 3;
     } else if (random <= 0.7) {
-        levelSize = randomInt(9, 14);
+        levelSize = randomInt(9, 13);
         boxNumber = 4;
-    } else if (random <= 0.88) {
+    } else if (random <= 0.9) {
         levelSize = randomInt(9, 14);
         boxNumber = 5;
     } else if (random <= 0.96) {
