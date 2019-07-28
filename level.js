@@ -40,7 +40,7 @@ class Level {
         }
         //place player
         var pos = this.randomSpot();
-        if (pos == null) { pos == [buttons[0].x, buttons[0].y]; }
+        if (pos == null) { pos == [this.buttons[0].x, this.buttons[0].y]; }
         this.playerX = pos[0];
         this.playerY = pos[1];
         this.playerstartX = this.playerX;

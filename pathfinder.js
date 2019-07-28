@@ -2,8 +2,8 @@
 // additionally the player will always take the longest available free path when choosing a box
 
 const wallCost = 100; //the cost for traversing a wall
-const pathCost = 1; //the cost for traversing an unoccupied node
-const playerPathCost = -1; //the player cost for traversing an unoccupied node
+var pathCost = 1; //the cost for traversing an unoccupied node
+var playerPathCost = -1; //the player cost for traversing an unoccupied node
 const boxCost = 10000; //the cost for traversing an occupied node
 
 class Pathfinder {
@@ -84,7 +84,7 @@ class Pathfinder {
             if (isBox) {
                 tempCost = (node.wall ? parent.cost + wallCost : parent.cost + pathCost);
             } else {
-                tempCost = (node.wall ? parent.cost + wallCost : parent.cost - playerPathCost);
+                tempCost = (node.wall ? parent.cost + wallCost : parent.cost + playerPathCost);
             }
 
         }
@@ -160,6 +160,11 @@ class Pathfinder {
                 tempCost += this.nodeCost(node.x, node.y + 2);
             }
 
+        }
+
+        //for optimizing prefer used nodes
+        if (node.used) {
+            tempCost -= 2;
         }
         return tempCost;
     }

@@ -46,24 +46,20 @@ function randomLevel() {
 
 //optimize the level
 function optimize(iterations) {
-    if (boxNumber < 7) {
-        for (var i = 0; i < iterations; i++) {
-            optimizeLvl(currentLvl);
-        }
-    }
+    optimizeLvl(currentLvl, iterations);
     drawAll();
 }
 
 //generate a new level
 function newLevel() {
-    //reaad values
+    //read level size and box number values
     if (inGame) {
         nextLevel();
     } else {
         readHtmlValues();
     }
     setHtmlValues();
-    document.getElementById("optimizeButton").style.visibility = "visible";
+
 
     currentLvl = new Level(levelSize, levelSize, boxNumber);
     currentLvl.rip(randomInt(-2, 5));
@@ -77,7 +73,8 @@ function newLevel() {
     } else {
         levelNumber++;
         activeSpots = [];
-        if (inGame && boxNumber < 6) { optimize(randomInt(-4, 4)); } //randomly optimize level if in game
+        if (inGame && boxNumber < 6) { optimize(randomInt(-1000, 1000)); } //randomly optimize level if in game
+        document.getElementById("optimizeButton").style.visibility = "visible";
         drawAll();
     }
 }
@@ -165,9 +162,9 @@ function nextLevel() {
         boxNumber = 5;
     } else if (random <= 0.96) {
         levelSize = randomInt(16, 20);
-        boxNumber = randomInt(4, 12);
+        boxNumber = randomInt(4, 8);
     } else if (random <= 1) {
-        levelSize = randomInt(12, 16);
+        levelSize = randomInt(9, 16);
         boxNumber = randomInt(6, 14);
     }
 }
