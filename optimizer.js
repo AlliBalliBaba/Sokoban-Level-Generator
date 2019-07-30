@@ -10,6 +10,9 @@ function optimizeLvl(lvl, iterations) {
     lvl.playerX = lvl.playerstartX;
     lvl.playerY = lvl.playerstartY;
 
+    //make the playerpathcost positive
+    var tempPlayerCost = playerPathCost;
+    playerPathCost = 2;
     //free the button positions
     for (var j = 0; j < lvl.buttons.length; j++) {
         lvl.nodes[lvl.buttons[j].x][lvl.buttons[j].y].occupied = false;
@@ -30,7 +33,7 @@ function optimizeLvl(lvl, iterations) {
             //randomly set pathcost for the boxes to negative in order to simulate nondirectional pushing of the boxes
             var tempCost = pathCost;
             pathCost = randomInt(-2, 4);
-            playerPathCost = 2;
+
 
             //calculate the paths from all boxes to their buttons
             var boxPaths = CalcualteBoxPaths(lvl, ghostBoxes);
@@ -130,6 +133,7 @@ function optimizeLvl(lvl, iterations) {
     for (var i = 0; i < minDestroyWall.length; i++) {
         minDestroyWall[i].wall = false;
     }
+    playerPathCost = tempPlayerCost;
     console.log(String(maxUnnecessary.length) + " walls added, " + String(minDestroyWall.length) + " walls removed")
 }
 
