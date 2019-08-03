@@ -52,23 +52,30 @@ function goDown() {
 //check the position for walls and boxes, move the player to the position
 function CheckPositions(prevX, prevY, x, y, nextX, nextY) {
     var nodes = currentLvl.nodes;
-    if (checkBoundaries(x, y) && !nodes[x][y].wall) {
+    if (checkBoundaries(currentLvl.nodes, x, y) && !nodes[x][y].wall) {
+
+        //check if new position has a box
         if (!nodes[x][y].hasBox) {
+            //move player
             currentLvl.setPlayerPos(x, y);
             addActivity(prevX, prevY, null);
             addActivity(x, y, null);
-            currentLvl.savedPositions.push([prevX, prevY, null, -1, -1])
-        } else if (checkBoundaries(nextX, nextY) && !nodes[nextX][nextY].wall && !nodes[nextX][nextY].hasBox) {
+            //save previous positions
+            savePosition(prevX, prevY, null, 0, 0);
+        } else if (checkBoundaries(currentLvl.nodes, nextX, nextY) && !nodes[nextX][nextY].wall && !nodes[nextX][nextY].hasBox) {
+            //move player
             currentLvl.setPlayerPos(x, y);
-            nodes[x][y].hasBox = false;
-            nodes[nextX][nextY].hasBox = true;
+            addActivity(prevX, prevY, null);
+            addActivity(x, y, null);
+            //move box
             var box = getBox(x, y);
             box.setPosition(nextX, nextY);
             box.placed = getButton(nextX, nextY);
-            addActivity(prevX, prevY, null);
-            addActivity(x, y, null);
+            nodes[x][y].hasBox = false;
+            nodes[nextX][nextY].hasBox = true;
             addActivity(nextX, nextY, box);
-            currentLvl.savedPositions.push([prevX, prevY, box, x, y])
+            //save previous positions
+            savePosition(prevX, prevY, box, x, y);
             if (box.placed) { checkWin(); }
         }
     }
@@ -79,9 +86,11 @@ function CheckPositions(prevX, prevY, x, y, nextX, nextY) {
 function revertStep() {
     if (currentLvl.savedPositions.length != 0) {
         var positions = currentLvl.savedPositions.pop();
+        //set player position
         currentLvl.setPlayerPos(positions[0], positions[1]);
         px = currentLvl.playerX;
         py = currentLvl.playerY;
+        //set box position
         if (positions[2] != null) {
             var thisBox = positions[2];
             currentLvl.nodes[thisBox.x][thisBox.y].hasBox = false;
@@ -96,6 +105,11 @@ function revertStep() {
 //refresh the drawing at a node for 30 frames
 function addActivity(x, y, box) {
     activeSpots.push([30, x, y, box]);
+}
+
+//save box and player positions for reverting
+function savePosition(playerX, playerY, box, boxX, boxY) {
+    currentLvl.savedPositions.push([playerX, playerY, box, boxX, boxY])
 }
 
 //return the box object at a position

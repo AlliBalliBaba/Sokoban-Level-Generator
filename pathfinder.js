@@ -19,7 +19,7 @@ class Pathfinder {
         this.closed = [];
     }
 
-    //return path and cost, cost between player-path and box-path can differ
+    //return path and cost, cost of player-path and box-path can differ
     returnPath(isBox) {
         this.open.push(this.nodes[this.startX][this.startY]);
         while (this.open.length != 0) {
@@ -29,7 +29,6 @@ class Pathfinder {
                 this.open.push(thisNode);
                 return this.sumPath(thisNode);
             } else {
-                //console.log("checking node: " + String(thisNode.x) + "/" + String(thisNode.y))
                 thisNode.closed = true;
                 this.closed.push(thisNode);
                 this.checkNeighbor(thisNode.x + 1, thisNode.y, thisNode, isBox);
@@ -56,7 +55,7 @@ class Pathfinder {
 
     //check a neighboring node
     checkNeighbor(x, y, parent, isBox) {
-        if (checkBoundaries(x, y)) {
+        if (checkBoundaries(this.nodes, x, y)) {
             var thisNode = this.nodes[x][y];
             if (!thisNode.closed && !thisNode.checked) {
                 thisNode.cost = this.calculateCost(thisNode, parent, isBox);
@@ -86,10 +85,9 @@ class Pathfinder {
             } else {
                 tempCost = (node.wall ? parent.cost + wallCost : parent.cost + playerPathCost);
             }
-
         }
-        // if the path is calculated for a box, the player path also has to be included, since the player
-        // has to walk around the box when changing directions
+        // if the path is calculated for a box, the player path also has to be included
+        // the player has to walk around the box when changing directions
         // there are always 2 ways to walk around the box for each of the 8 situations:
         if (isBox && parent.parent != null) {
             var cost1 = 0;
@@ -138,7 +136,7 @@ class Pathfinder {
                 //case 4: node is under parent
                 if (node.x - 1 == parent.parent.x) {
                     //case 4.1: node is right down of parent.parent
-                    var cost1 = this.nodeCost(node.x2, node.y + 2) + this.nodeCost(node.x - 1, node.y + 2);
+                    var cost1 = this.nodeCost(node.x, node.y + 2) + this.nodeCost(node.x - 1, node.y + 2);
                     var cost2 = this.nodeCost(node.x - 1, node.y) + this.nodeCost(node.x + 1, node.y) + this.nodeCost(node.x + 1, node.y + 1) +
                         this.nodeCost(node.x + 1, node.y + 2) + this.nodeCost(node.x, node.y + 2);
                 } else {
@@ -164,14 +162,14 @@ class Pathfinder {
 
         //for optimizing prefer used nodes
         if (node.used) {
-            tempCost -= 2;
+            tempCost -= 5;
         }
         return tempCost;
     }
 
     //calculate the cost of a position
     nodeCost(x, y) {
-        if (checkBoundaries(x, y)) {
+        if (checkBoundaries(this.nodes, x, y)) {
             var node = this.nodes[x][y];
             if (node.occupied) {
                 return boxCost;
@@ -185,18 +183,18 @@ class Pathfinder {
 
     //reset the level's nodes for further pathfinding
     resetNodes() {
-        for (var i = 0; i < this.open.length; i++) {
-            this.open[i].checked = false;
-            this.open[i].closed = false;
-            this.open[i].parent = null;
-            this.open[i].cost = 0;
-        }
-        for (var i = 0; i < this.closed.length; i++) {
-            this.closed[i].checked = false;
-            this.closed[i].closed = false;
-            this.closed[i].parent = null;
-            this.closed[i].cost = 0;
-        }
+        this.open.forEach(function(node) {
+            node.checked = false;
+            node.closed = false;
+            node.parent = null;
+            node.cost = 0;
+        })
+        this.closed.forEach(function(node) {
+            node.checked = false;
+            node.closed = false;
+            node.parent = null;
+            node.cost = 0;
+        })
     }
 }
 

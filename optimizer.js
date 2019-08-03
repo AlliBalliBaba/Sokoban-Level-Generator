@@ -1,6 +1,9 @@
 // optimize the level by solving it in different ways and removing unnecessary free spots
 // repeatably optimizing yields different results, since there is a randomness to the algorithm
 
+const optPathCost = 4; //optimizer box path cost
+const optPlayerCost = 4; //optimizer player path cost
+
 function optimizeLvl(lvl, iterations) {
 
     var maxUnnecessary = [];
@@ -12,7 +15,7 @@ function optimizeLvl(lvl, iterations) {
 
     //make the playerpathcost positive
     var tempPlayerCost = playerPathCost;
-    playerPathCost = 2;
+    playerPathCost = optPlayerCost;
     //free the button positions
     for (var j = 0; j < lvl.buttons.length; j++) {
         lvl.nodes[lvl.buttons[j].x][lvl.buttons[j].y].occupied = false;
@@ -32,8 +35,7 @@ function optimizeLvl(lvl, iterations) {
         while (solveCounter > 0) {
             //randomly set pathcost for the boxes to negative in order to simulate nondirectional pushing of the boxes
             var tempCost = pathCost;
-            pathCost = randomInt(-2, 4);
-
+            pathCost = randomInt(-2, optPathCost);
 
             //calculate the paths from all boxes to their buttons
             var boxPaths = CalcualteBoxPaths(lvl, ghostBoxes);
@@ -41,8 +43,7 @@ function optimizeLvl(lvl, iterations) {
 
             //calculate the player paths to all boxes and choose a RANDOM free path
             var playerPaths = CalcualtePlayerPaths(lvl, ghostBoxes, boxPaths)[0];
-            var goodPaths = playerPaths.filter(lowCost);
-            bestPath = (goodPaths.length != 0 ? randomInt(0, goodPaths.length) : randomInt(0, playerPaths.length));
+            var bestPath = randomInt(0, playerPaths.length);
             var playerPath = playerPaths[bestPath][0];
             var boxPath = boxPaths[bestPath][0];
 
@@ -65,7 +66,7 @@ function optimizeLvl(lvl, iterations) {
             if (boxPath.length > 1) {
                 for (var i = 1; i < boxPath.length; i++) {
                     var nextNode = boxPath[i];
-                    if (diffX == nextNode.x - currentNode.x && diffY == nextNode.y - currentNode.y) {
+                    if (true == false && diffX == nextNode.x - currentNode.x && diffY == nextNode.y - currentNode.y) {
                         currentNode = nextNode;
                     } else {
                         stop = i - 1;
@@ -155,5 +156,5 @@ function optimizeLvl2(lvl, iterations) {
 
 
 function lowCost(value) {
-    return value[1] < 1;
+    return value[1] < 50;
 }

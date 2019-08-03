@@ -1,10 +1,9 @@
 //create a 2D Array
 function Array2d(xSize, ySize, content) {
     var NodeGrid = new Array(xSize);
-    var i, j;
-    for (i = 0; i < xSize; i++) {
+    for (var i = 0; i < xSize; i++) {
         NodeGrid[i] = new Array(ySize);
-        for (j = 0; j < ySize; j++) {
+        for (var j = 0; j < ySize; j++) {
             NodeGrid[i][j] = content;
         }
     }
@@ -66,9 +65,9 @@ function fComparer(element1, element2) {
     return element1.f - element2.f;
 }
 
-//check if a point is in the array boundaries
-function checkBoundaries(x, y) {
-    if (x >= 0 && x < currentLvl.nodes.length && y >= 0 && y < currentLvl.nodes[0].length) {
+//check if a point is in the boundaries of a 2D-array
+function checkBoundaries(arr2D, x, y) {
+    if (x >= 0 && x < arr2D.length && y >= 0 && y < arr2D[0].length) {
         return true;
     }
     return false;

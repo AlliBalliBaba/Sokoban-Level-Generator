@@ -40,9 +40,10 @@ class Level {
         }
         //place player
         var pos = this.randomSpot();
-        if (pos == null) { pos == [this.buttons[0].x, this.buttons[0].y]; }
-        this.playerX = pos[0];
-        this.playerY = pos[1];
+        if (pos == null) {
+            pos = [this.buttons[0].x, this.buttons[0].y];
+        }
+        this.setPlayerPos(pos[0], pos[1]);
         this.playerstartX = this.playerX;
         this.playerstartY = this.playerY;
     }
@@ -64,13 +65,15 @@ class Level {
             var x = this.allowedSpots[rand].x;
             var y = this.allowedSpots[rand].y;
             this.allowedSpots.splice(rand, 1);
-            if (this.absoluteBlockade(x, y)) {
+            this.nodes[x][y].wall = false;
+            if (this.blockaded(x, y)) {
                 return this.randomSpot();
             } else {
-                this.nodes[x][y].wall = false;
                 return [x, y];
             }
-        } else { return null; }
+        } else {
+            return null;
+        }
     }
 
     //randomly remove walls from the level
@@ -88,7 +91,7 @@ class Level {
     }
 
     //check if a spot is blockaded by boxes
-    absoluteBlockade(X, Y) {
+    blockaded(X, Y) {
         if (this.nodes[X + 1][Y].hasBox) {
             if ((this.nodes[X + 1][Y + 1].hasBox && this.nodes[X][Y + 1].hasBox) || (this.nodes[X + 1][Y - 1].hasBox && this.nodes[X][Y - 1].hasBox)) {
                 return true;

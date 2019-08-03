@@ -5,6 +5,7 @@ let floorPic;
 let playerPic1;
 let playerPic2;
 let placedBoxPic;
+var activeSpots;
 var px = 0;
 var py = 0;
 
@@ -33,13 +34,7 @@ function drawAll() {
 }
 
 function drawBoxes(lvl) {
-    lvl.boxes.forEach(function(element) {
-        if (element.placed) {
-            image(placedBoxPic, element.px * lvl.blockSize, element.py * lvl.blockSize, lvl.blockSize, lvl.blockSize);
-        } else {
-            image(boxPic, element.px * lvl.blockSize, element.py * lvl.blockSize, lvl.blockSize, lvl.blockSize);
-        }
-    });
+    lvl.boxes.forEach(box => drawBox(lvl, box));
 }
 
 function drawButtons(lvl) {
@@ -99,6 +94,24 @@ function drawBox(lvl, element) {
     }
 }
 
+function drawActiveSpots() {
+    for (var i = 0; i < activeSpots.length; i++) {
+        if (activeSpots[i][0] == 0) {
+            activeSpots.splice(i, 1)
+            i--;
+        } else {
+            activeSpots[i][0]--;
+            drawSpot(currentLvl, activeSpots[i][1], activeSpots[i][2]);
+            if (activeSpots[i][3] != null) {
+                var tempBox = activeSpots[i][3];
+                tempBox.px = (tempBox.px + tempBox.x) * 0.5;
+                tempBox.py = (tempBox.py + tempBox.y) * 0.5;
+                drawBox(currentLvl, tempBox);
+            }
+        }
+    }
+}
+
 function drawWin() {
     var variable = Math.sin(counter / 128.) * 256;
     fill(variable, variable, variable);
@@ -115,7 +128,7 @@ function drawWin() {
 function surrounded(lvl, x, y) {
     for (var i = x - 1; i <= x + 1; i++) {
         for (var j = y - 1; j <= y + 1; j++) {
-            if (checkBoundaries(i, j) && !lvl.nodes[i][j].wall) {
+            if (checkBoundaries(lvl.nodes, i, j) && !lvl.nodes[i][j].wall) {
                 return false;
             }
         }
