@@ -1,41 +1,35 @@
 .center {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    width: 50%;
+    position: absolute;
+    left: 29%;
+    top: 30%;
 }
 
 .btn {
     cursor: pointer;
     height: 40px;
-    background: rgb(255, 109, 24);
+    width: 15%;
+    background: rgb(134, 221, 255);
     border-radius: 5px;
     border: none;
-    color: rgba(255, 255, 255, 0.897);
+    color: rgba(0, 0, 0, 0.897);
     font-family: monospace;
     font-size: 14px;
+    margin: 5px;
 }
 
-.btn2 {
-    cursor: pointer;
-    height: 40px;
-    background: rgb(15, 91, 255);
-    border-radius: 5px;
-    border: none;
-    color: rgba(255, 255, 255, 0.897);
-    font-family: monospace;
-    font-size: 14px;
+.box {
+    position: absolute;
+    width: 55%;
+    height: 85%;
+    background-color: rgb(0, 0, 0);
+    margin-left: 20%;
+    z-index: -5;
+    margin-top: 6.5%
 }
 
-.btn3 {
-    cursor: pointer;
-    height: 40px;
-    background: rgb(73, 180, 2);
-    border-radius: 5px;
-    border: none;
-    color: rgba(255, 255, 255, 0.897);
-    font-family: monospace;
-    font-size: 14px;
+button:hover {
+    background: rgb(251, 253, 255);
+    color: black
 }
 
 #canvas1 {

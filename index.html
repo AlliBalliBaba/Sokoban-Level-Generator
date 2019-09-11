@@ -15,24 +15,36 @@
     <title>Sokoban lvl generator</title>
 </head>
 
-<body style="background-color:rgb(253, 255, 240);">
-    <div id="buttoncontainer">
-        <button id="startButton" class="btn2" color="white" onClick="startGame()">Start new game</button>
-        <button id="generateButton" class="btn" color="white" onClick="randomLevel()">Generate random level</button>
-        <button id="optimizeButton" class="btn3" color="white" onClick="optimize(500)">Optimize level</button>
-        <button id="revertButton" class="btn3" color="white" onClick="revertStep()">Revert step</button>
+<body style="background-color:rgb(255, 240, 206);">
+    <div class="box"></div>
+
+
+    <div style="margin-left: -5%; text-align: center; color: black">
+        <h1>Sokoban <br> Level Generator </h1>
     </div>
-    <div class="slideContainer">
-        <div id="sizeTxt">size of level</div>
+
+    <div id="buttoncontainer">
+        <button id="startButton" class="btn" color="white" onClick="startGame()">Start new game</button>
+        <br>
+        <button id="generateButton" class="btn" color="white" onClick="randomLevel()">Generate random level</button>
+        <br>
+        <button id="optimizeButton" class="btn" color="white" onClick="optimize(500)">Optimize level</button>
+        <br>
+        <button id="revertButton" class="btn" color="white" onClick="revertStep()">Revert step</button>
+    </div>
+    <div class="slideContainer" style="margin-left:50px;margin-top: 30px">
+        <div id="sizeTxt" style="color: rgb(0, 0, 0)">size of level</div>
         <input type="range" min="7" max="25" value="10" class="slider" id="sizeSlider" onchange="displayHtmlValues()">
     </div>
 
-    <div class="slideContainer">
-        <div id="boxTxt">number of boxes</div>
+    <div class="slideContainer" style="margin-left:50px">
+        <div id="boxTxt" style="color: rgb(0, 0, 0)">number of boxes</div>
         <input type="range" min="1" max="18" value="3" class="slider" id="numSlider" onchange="displayHtmlValues()">
     </div>
     <div id="canvas1" class="center">
     </div>
+    <img src="assets/instructions.jpg" alt="move: arrowkeys; next Level: enter; revert step: z" style="position:absolute;right: 10%;top: 30%;">
+
 </body>
 
 </html>
