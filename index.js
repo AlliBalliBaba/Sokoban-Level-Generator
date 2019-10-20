@@ -23,6 +23,8 @@ function setup() {
     document.getElementById("revertButton").style.visibility = "hidden";
     displayHtmlValues();
     background(0);
+    preventArrowKeyScroll();
+
 }
 
 //start new game
@@ -30,8 +32,6 @@ function startGame() {
     levelNumber = 0;
     inGame = true;
     newLevel();
-    document.getElementById("startButton").style.visibility = "hidden";
-    document.getElementById("startButton").disabled = true;
     document.getElementById("revertButton").style.visibility = "visible";
 }
 
