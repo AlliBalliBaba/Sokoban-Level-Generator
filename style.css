@@ -7,7 +7,7 @@ body{
 .canv {
     position: absolute;
     left: 315pt;
-    top: 100pt;
+    top: 150px;
     border-style: solid;
     border-width: 5px;
     border-color: rgb(255, 255, 255);
@@ -16,16 +16,16 @@ body{
 .instructions{
     position:absolute;
     left: 800pt;
-    top: 100pt;
+    top: 150px;
     border-style: solid;
     border-width: 5px;
-    border-color: rgb(255, 0, 0);
+    border-color: rgb(223, 89, 0);
 }
 
 h1{
     padding: 20px;
     color: rgb(255, 255, 255);
-    background-color: rgb(255, 51, 0);
+    background-color: rgb(223, 89, 0);
 
 }
 
@@ -33,25 +33,28 @@ h1{
     cursor: pointer;
     height: 40px;
     width: 300px;
-    background: rgb(255, 0, 0);
+    background: rgb(223, 89, 0);
     border-radius: 5px;
     color: white;
     font-family: monospace;
     font-size: 14px;
     margin: 5px;
     border-style: solid;
-    border-color: rgb(255, 149, 122);
+    border-color: rgb(255, 216, 206);
 }
 
 button:hover {
-    background: rgb(255, 153, 153);
-    color: black
+    background: rgb(255, 242, 233);
+    color: rgb(223, 89, 0);
+    
+    
 }
 .slidecontainer{
     width: 300px;
     text-align: center;
     margin-top: 30px;
 }
+
 
 .slider {
     -webkit-appearance: none;

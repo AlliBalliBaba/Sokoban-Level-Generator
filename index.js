@@ -20,7 +20,6 @@ function setup() {
     canvas = createCanvas(canvasX, canvasY);
     canvas.parent('canvas1');
     document.getElementById("optimizeButton").style.visibility = "hidden";
-    document.getElementById("revertButton").style.visibility = "hidden";
     displayHtmlValues();
     background(0);
     preventArrowKeyScroll();
@@ -32,7 +31,6 @@ function startGame() {
     levelNumber = 0;
     inGame = true;
     newLevel();
-    document.getElementById("revertButton").style.visibility = "visible";
 }
 
 //generate random level
@@ -40,9 +38,8 @@ function randomLevel() {
     levelNumber = 0;
     inGame = false;
     newLevel();
-    document.getElementById("startButton").style.visibility = "visible";
-    document.getElementById("startButton").disabled = false;
-    document.getElementById("revertButton").style.visibility = "visible";
+    //document.getElementById("startButton").style.visibility = "visible";
+    //document.getElementById("startButton").disabled = false;
 }
 
 //optimize the level

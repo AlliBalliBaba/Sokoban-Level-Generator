@@ -22,19 +22,18 @@
         <h1>Sokoban Random Level Generator </h1>
     </div>
 
-    <div id="buttoncontainer">
-        <button id="startButton" class="btn" color="white" onClick="startGame()"> <b> Start new game </b></button>
+    <div id="buttoncontainer" >
+        <!--<button id="startButton" class="btn" color="white" onClick="startGame()"> <b> Start new game </b></button>-->
         <br>
         <button id="generateButton" class="btn" color="white" onClick="randomLevel()"><b>Generate random level</b></button>
         <br>
         <button id="optimizeButton" class="btn" color="white" onClick="optimize(500)"><b>Optimize level</b></button>
-        <br>
-        <button id="revertButton" class="btn" color="white" onClick="revertStep()"><b>Revert step </b></button>
     </div>
+
     <div class="slideContainer" >
         <div id="sizeTxt" style="color: rgb(255, 255, 255)">size of level</div>
         <input type="range" min="7" max="25" value="10" class="slider" id="sizeSlider" onchange="displayHtmlValues()">
-        <br>
+    
         <div id="boxTxt" style="color: rgb(255, 255, 255)">number of boxes</div>
         <input type="range" min="1" max="18" value="3" class="slider" id="numSlider" onchange="displayHtmlValues()">
     </div>
