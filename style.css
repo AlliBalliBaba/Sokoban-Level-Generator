@@ -1,7 +1,7 @@
 body{
     font-family: 'Courier New', Courier, monospace;
     padding: 20px;
-    background-color: rgb(0, 0, 0);
+    background-color: rgb(34, 34, 34);
 }
 
 .canv {
@@ -19,13 +19,14 @@ body{
     top: 150px;
     border-style: solid;
     border-width: 5px;
-    border-color: rgb(223, 89, 0);
+    border-color: rgb(223, 0, 0);
 }
 
 h1{
     padding: 20px;
+    margin: 10px 0;
     color: rgb(255, 255, 255);
-    background-color: rgb(223, 89, 0);
+    background-color: rgb(231, 6, 6);
 
 }
 
@@ -33,7 +34,7 @@ h1{
     cursor: pointer;
     height: 40px;
     width: 300px;
-    background: rgb(223, 89, 0);
+    background: rgb(255, 0, 0);
     border-radius: 5px;
     color: white;
     font-family: monospace;
@@ -45,7 +46,7 @@ h1{
 
 button:hover {
     background: rgb(255, 242, 233);
-    color: rgb(223, 89, 0);
+    color: rgb(223, 0, 0);
     
     
 }
@@ -75,7 +76,7 @@ button:hover {
     width: 25px;
     height: 25px;
     border-radius: 50%; 
-    background: rgb(255, 0, 0);
+    background: rgb(223, 0, 0);
     cursor: pointer;
   }
   

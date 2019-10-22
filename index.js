@@ -23,7 +23,7 @@ function setup() {
     displayHtmlValues();
     background(0);
     preventArrowKeyScroll();
-
+    drawOnlyWalls();
 }
 
 //start new game
