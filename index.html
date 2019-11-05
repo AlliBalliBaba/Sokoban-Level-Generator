@@ -16,31 +16,41 @@
 </head>
 
 <body>
-<div class="box";>
+
     <div>
+        <div class="title">
         <h1>Sokoban Random Level Generator </h1>
+        <h3>Generate a random level and solve it</h3>
+    </div>
     </div>
 
-    <div id="buttoncontainer" >
-        <!--<button id="startButton" class="btn" color="white" onClick="startGame()"> <b> Start new game </b></button>-->
-        <br>
-        <button id="generateButton" class="btn" color="white" onClick="randomLevel()"><b>Generate random level</b></button>
-        <br>
-        <button id="optimizeButton" class="btn" color="white" onClick="optimize(500)"><b>Optimize level</b></button>
-    </div>
+    <div class="container">
+        <div class="instructions buttonbox">
+            <div id="buttoncontainer">
+                <br>
+                <button id="generateButton" class="btn" color="white" onClick="randomLevel()">
+                    <b>Generate Random</b></button>
+                <br>
+                <button id="optimizeButton" class="btn" color="white" onClick="optimize(500)">
+                    <b>Optimize Level</b></button>
+            </div>
 
-    <div class="slideContainer" >
-        <div id="sizeTxt" style="color: rgb(255, 255, 255)">size of level</div>
-        <input type="range" min="7" max="25" value="10" class="slider" id="sizeSlider" onchange="displayHtmlValues()">
-    
-        <div id="boxTxt" style="color: rgb(255, 255, 255)">number of boxes</div>
-        <input type="range" min="1" max="18" value="3" class="slider" id="numSlider" onchange="displayHtmlValues()">
-    </div>
-    <div id="canvas1" class="canv">
-    </div>
-    <img src="assets/instructions.jpg" alt="move: arrowkeys; next Level: enter; revert step: z" class="instructions">
+            <div class="slideContainer">
+                <div id="sizeTxt" style="color: rgb(255, 255, 255)">size of level</div>
+                <input type="range" min="7" max="20" value="10" class="slider" id="sizeSlider"
+                    onchange="displayHtmlValues()">
 
-</div>
+                <div id="boxTxt" style="color: rgb(255, 255, 255)">number of boxes</div>
+                <input type="range" min="1" max="10" value="3" class="slider" id="numSlider"
+                    onchange="displayHtmlValues()">
+            </div>
+        </div>
+
+        <div id="canvas1" class="canv"></div>
+        <img src="assets/instructions.jpg" alt="move: arrowkeys; next Level: enter; revert step: z"
+            class="instructions">
+    </div>
+    </div>
 </body>
 
 </html>
